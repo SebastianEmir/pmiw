@@ -1,3 +1,5 @@
+//Sebastian Gualtieri, comicion 1
+
 var robot; //subida de las imagenes
 var nombreLogo;
 
