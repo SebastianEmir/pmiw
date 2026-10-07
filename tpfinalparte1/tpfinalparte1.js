@@ -64,7 +64,6 @@ function preload(){
   textos[9] = "A la mañana siguiente, bien temprano, vuelven a contruir el nuevo dique con los consejos del \nsurubi. Apenas terminaron el buque volvio y esta vez las personas amenazaron con destruir todo, hasta\n que el viejo yacare penso en otra solucion.";
   textos[10] = "Final B (Original)\nEl buque de guerra hizo el primer ataque, comenzando asi el enfrentamiento. \nLos yacares junto al Surubi sueltan el torpedo y el buque es destruido. Ganan la batalla, el surubi vuelve \na su gruta y los yacares vuelven a descansar tranquilos.";
   
-  // Textos para la ruta pacífica
   textos[11] = "Negociacion de paz\nLos marineros ven la determinacion de los yacares y aceptan hablar. Ambas partes conversan sobre como compartir el rio sin destruir el habita ni espantar la comida.";
   textos[12] = "Propuesta\nLos yacares deciden no utilizar el torpedo para atacar directamente, sino usar la presencia del Surubi y el torpedo como demostracion de fuerza para proponer una tregua.";
   textos[13] = "Final A (Pacífico)\nSe logra un acuerdo pacifico. Los hombres se comprometen a navegar despacio por la zona y los yacares conservan su hogar sin necesidad de mas violencia.";
