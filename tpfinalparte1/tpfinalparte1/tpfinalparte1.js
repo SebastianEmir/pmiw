@@ -20,8 +20,7 @@ var mostrarOpcionesP9 = false; // Pantalla 9
 let eleccion = ""; 
 
 function preload(){ 
-  
-audioNatural = loadSound("data/audio-naturaleza.mp3", function() {
+  audioNatural = loadSound("data/audio-naturaleza.mp3", function() {
     audioNatural.setLoop(true);
   });
   
@@ -72,17 +71,11 @@ audioNatural = loadSound("data/audio-naturaleza.mp3", function() {
   textos[8] = "Al llegar con el surubi y reconocer al viejo yacare el le pidie el torpedo\n que este tenia. El se los da e ira con ellos ya que solo el sabe como reventarlo y \nles dice como construir el dique. Asi que van a la costa";
   textos[9] = "A la mañana siguiente, bien temprano, vuelven a contruir el nuevo dique con los consejos del \nsurubi. Apenas terminaron el buque volvio y esta vez las personas amenazaron con destruir todo, hasta\n que el viejo yacare penso en otra solucion.";
   textos[10] = "Final B (Original)\nEl buque de guerra hizo el primer ataque, comenzando asi el enfrentamiento. \nLos yacares junto al Surubi sueltan el torpedo y el buque es destruido. Ganan la batalla, el surubi vuelve \na su gruta y los yacares vuelven a descansar tranquilos.";
-  
-  // Textos para la ruta pacífica
   textos[11] = "los yacares toman la decision de ir a negociar la paz con lo hombres del buque\n hablan para ver si pueden ver como pueden llegar a un acuerdo que\n veneficie a ambas partes";
   textos[12] = "los hombres del proponen usar barcos de motor electrico ya que no hacen ruido\n y no molestan a los yacares ni espantar los peces";
   textos[13] = "(final C)\n pasan los barcos de motor electrico y los yacares pueden vivir tranquilos, asi comparten el rio";
-  
-  // Textos para la ruta de ataque directo
   textos[14] = "Los yacares atacan con firmeza el buque hasta provocar su hundimiento en el rio.";
   textos[15] = "Victoria Yacaré\nTras el combate contra el buque, los yacares logran defender con éxito su territorio y recuperar la tranquilidad del río.";
-  
-  // Texto para el Final de Ataque desde Dique Roto
   textos[16] = "Final A\n el buque es demasiado fuerte, los yacares deciden derribar los arboles mas grandes\n de la orilla, trepandose al buque y eliminar a los humanos de el.";
 }
 
@@ -98,7 +91,9 @@ function draw() {
   if (pantalla === 0) {
     image(imagenes[0], 0, 0, width, height);
 
-    fill(0, 100); rect(0, 60, width, 100);
+    fill(0, 100); 
+    rect(0, 60, width, 100);
+    
     fill(112, 185, 106);
     textSize(40);
     textAlign(CENTER, CENTER);
@@ -115,17 +110,13 @@ function draw() {
       fill(255);
     }
     textSize(25);
-    textAlign(CENTER, CENTER);
     text("COMENZAR", width/2, 325);
   } 
   
   // PANTALLA 1
   else if (pantalla === 1) {
     image(imagenes[1], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[1], 100, 370, 600, 80);
-    image(flecha, 700, 390, 50, 50);
+    mostrarBloqueTexto(textos[1]);
   } 
   
   // PANTALLA 2 (PRIMERA ELECCIÓN)
@@ -133,31 +124,17 @@ function draw() {
     image(imagenes[2], 0, 0, width, height);
 
     if (!mostrarOpciones) {
-      dibujarFondoTexto();
-      confiTexto();
-      text(textos[2], 100, 370, 600, 80);
-      image(flecha, 700, 390, 50, 50);
+      mostrarBloqueTexto(textos[2]);
     } else {
-      image(tronco, 200, 300, 150, 100);
-      image(tronco2, 500, 300, 150, 100);
-
-      confiTexto();
-      text("Hacer un\n dique", 220, 290, 80, 120);
-      text("Atacar el buque\n con los dientes", 500, 290, 130, 120);
+      dibujarTroncosOpciones("Hacer un\n dique", "Atacar el buque\n com los dientes");
     }
   } 
   
   // PANTALLA 3 Y 5 (PRIMER PASO DE CADA CAMINO)
   else if (pantalla === 3 || pantalla === 5) {
-    if (eleccion === "dique") {
-      image(imagenes[9], 0, 0, width, height);
-    } else {
-      image(imagenes[7], 0, 0, width, height);
-    }
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[pantalla], 100, 370, 600, 80);
-    image(flecha, 700, 390, 50, 50);
+    let imgActual = (eleccion === "dique") ? imagenes[9] : imagenes[7];
+    image(imgActual, 0, 0, width, height);
+    mostrarBloqueTexto(textos[pantalla]);
   } 
   
   // PANTALLA 4 (OPCIONES DIQUE)
@@ -165,36 +142,20 @@ function draw() {
     image(imagenes[10], 0, 0, width, height);
 
     if (!mostrarOpcionesP4) {
-      dibujarFondoTexto();
-      confiTexto();
-      text(textos[4], 100, 370, 600, 80);
-      image(flecha, 700, 390, 50, 50);
+      mostrarBloqueTexto(textos[4]);
     } else {
-      image(tronco, 200, 300, 150, 100);
-      image(tronco2, 500, 300, 150, 100);
-
-      confiTexto();
-      text("No sacar el dique\n y ver que pasa", 190, 290, 150, 120);
-      text("Buscar otra\n estrategia", 500, 290, 130, 120);
+      dibujarTroncosOpciones("No sacar el dique\n y ver que pasa", "Buscar otra\n estrategia");
     }
   }
 
-  // PANTALLA 6: imgAlternativa-2.jpeg (CON OPCIONES)
+  // PANTALLA 6
   else if (pantalla === 6) {
     image(imagenes[8], 0, 0, width, height);
 
     if (!mostrarOpcionesP6) {
-      dibujarFondoTexto();
-      confiTexto();
-      text(textos[6], 100, 370, 600, 80);
-      image(flecha, 700, 390, 50, 50);
+      mostrarBloqueTexto(textos[6]);
     } else {
-      image(tronco, 200, 300, 150, 100);
-      image(tronco2, 500, 300, 150, 100);
-
-      confiTexto();
-      text("Construir un dique para\n detener el buque", 190, 290, 150, 120);
-      text("Planear como atacar\n al buque", 500, 290, 150, 120);
+      dibujarTroncosOpciones("Construir un dique para\n detener el buque", "Planear como atacar\n al buque");
     }
   }
 
@@ -203,27 +164,16 @@ function draw() {
     image(imagenes[16], 0, 0, width, height);
 
     if (!mostrarOpcionesP7) {
-      dibujarFondoTexto();
-      confiTexto();
-      text(textos[7], 100, 370, 600, 80);
-      image(flecha, 700, 390, 50, 50);
+      mostrarBloqueTexto(textos[7]);
     } else {
-      image(tronco, 200, 300, 150, 100);
-      image(tronco2, 500, 300, 150, 100);
-
-      confiTexto();
-      text("Ir a ver\n al surubi", 220, 290, 80, 120);
-      text("Idear una forma\n de pelear", 500, 290, 130, 120);
+      dibujarTroncosOpciones("Ir a ver\n al surubi", "Idear una forma\n de pelear");
     }
   }
 
   // PANTALLA 8: YACARÉS Y EL SURUBÍ
   else if (pantalla === 8) {
     image(imagenes[13], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[8], 100, 370, 600, 80);
-    image(flecha, 700, 390, 50, 50);
+    mostrarBloqueTexto(textos[8]);
   }
 
   // PANTALLA 9: PLAN CONTRA BARCO
@@ -236,76 +186,50 @@ function draw() {
       text(textos[9], 10, 370, 680, 80);
       image(flecha, 700, 390, 50, 50);
     } else {
-      image(tronco, 200, 300, 150, 100);
-      image(tronco2, 500, 300, 150, 100);
-
-      confiTexto();
-      text("Amenazar con\n comer al oficial", 190, 290, 150, 120);
-      text("Negociar un acuerdo\n de paz", 500, 290, 150, 120);
+      dibujarTroncosOpciones("Amenazar con\n comer al oficial", "Negociar un acuerdo\n de paz");
     }
   }
 
   // PANTALLA 10: FINAL ORIGINAL
   else if (pantalla === 10) {
     image(imagenes[14], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[10], 100, 370, 600, 80);
-    image(flechaVolver, 20, 20, 50, 50);
+    mostrarBloqueTextoFinal(textos[10]);
   }
 
   // PANTALLA 11: NEGOCIACIÓN DE PAZ
   else if (pantalla === 11) {
     image(imagenes[18], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[11], 100, 370, 600, 80);
-    image(flecha, 700, 390, 50, 50);
+    mostrarBloqueTexto(textos[11]);
   }
 
   // PANTALLA 12: PROPUESTA
   else if (pantalla === 12) {
     image(imagenes[19], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[12], 100, 370, 600, 80);
-    image(flecha, 700, 390, 50, 50);
+    mostrarBloqueTexto(textos[12]);
   }
 
   // PANTALLA 13: FINAL PACÍFICO
   else if (pantalla === 13) {
     image(imagenes[20], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[13], 100, 370, 600, 80);
-    image(flechaVolver, 20, 20, 50, 50);
+    mostrarBloqueTextoFinal(textos[13]);
   }
 
-  // PANTALLA 14: ANTEÚLTIMA (hundimiento-de-buque.jpeg)
+  // PANTALLA 14: ANTEÚLTIMA
   else if (pantalla === 14) {
     image(imagenes[15], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[14], 100, 370, 600, 80);
-    image(flecha, 700, 390, 50, 50);
+    mostrarBloqueTexto(textos[14]);
   }
 
-  // PANTALLA 15: ÚLTIMA / FINAL ATAQUE (yacares-vs-buque.jpeg)
+  // PANTALLA 15: FINAL ATAQUE
   else if (pantalla === 15) {
     image(imagenes[12], 0, 0, width, height);
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[15], 100, 370, 600, 80);
-    image(flechaVolver, 20, 20, 50, 50);
+    mostrarBloqueTextoFinal(textos[15]);
   }
 
-  // PANTALLA 16: FINAL YACARÉS AL ATAQUE (yacares-al-ataque.jpeg)
+  // PANTALLA 16: FINAL YACARÉS AL ATAQUE
   else if (pantalla === 16) {
-    image(imagenes[11], 0, 0, width, height); // yacares-al-ataque.jpeg
-    dibujarFondoTexto();
-    confiTexto();
-    text(textos[16], 100, 370, 600, 80);
-    image(flechaVolver, 20, 20, 50, 50);
+    image(imagenes[11], 0, 0, width, height);
+    mostrarBloqueTextoFinal(textos[16]);
   }
 
   // TRANSICIÓN
@@ -320,6 +244,29 @@ function draw() {
       opacidad = 0;
     }
   }
+}
+
+// FUNCIONES AUXILIARES PARA REDUCIR REPETICIONES
+function mostrarBloqueTexto(txt) {
+  dibujarFondoTexto();
+  confiTexto();
+  text(txt, 100, 370, 600, 80);
+  image(flecha, 700, 390, 50, 50);
+}
+
+function mostrarBloqueTextoFinal(txt) {
+  dibujarFondoTexto();
+  confiTexto();
+  text(txt, 100, 370, 600, 80);
+  image(flechaVolver, 20, 20, 50, 50);
+}
+
+function dibujarTroncosOpciones(texto1, texto2) {
+  image(tronco, 200, 300, 150, 100);
+  image(tronco2, 500, 300, 150, 100);
+  confiTexto();
+  text(texto1, 190, 290, 150, 120);
+  text(texto2, 500, 290, 150, 120);
 }
 
 function mouseZona(x1, x2, y1, y2) {
@@ -338,18 +285,15 @@ function dibujarFondoTexto() {
 }
 
 function mousePressed() {
-  
-        if(audioNatural.isPlaying()){
-  audioNatural.play();
-  }else{
-  audioNatural.play();
+  // Solución al bug de audio duplicado:
+  if (!audioNatural.isPlaying()) {
+    audioNatural.play();
   }
   
   if (pantalla === 0 && mouseZona(250, 550, 300, 350)) {
     siguientePantalla = 1;
     transicion = true;
   }
-  
   else if (pantalla === 1 && mouseZona(700, 750, 390, 440)) {
     siguientePantalla = 2;
     transicion = true;
@@ -392,8 +336,6 @@ function mousePressed() {
     siguientePantalla = 6;
     transicion = true;
   }
-
-  // INTERACCIÓN EN PANTALLA 6
   else if (pantalla === 6) {
     if (!mostrarOpcionesP6 && mouseZona(700, 750, 390, 440)) {
       mostrarOpcionesP6 = true;
@@ -408,31 +350,24 @@ function mousePressed() {
       }
     }
   }
-
-  // INTERACCIÓN EN PANTALLA 7 (DIQUE ROTO)
   else if (pantalla === 7) {
     if (!mostrarOpcionesP7 && mouseZona(700, 750, 390, 440)) {
       mostrarOpcionesP7 = true;
     } else if (mostrarOpcionesP7) {
-      // Opción A: Ir a ver al Surubí -> Ir a Pantalla 8
       if (mouseZona(180, 370, 280, 400)) { 
         siguientePantalla = 8;
         transicion = true;
       }
-      // Opción B: Idear una forma de pelear -> Ir a Pantalla 16 (Final Yacarés al Ataque)
       else if (mouseZona(480, 670, 280, 400)) { 
         siguientePantalla = 16;
         transicion = true;
       }
     }
   }
-
   else if (pantalla === 8 && mouseZona(700, 750, 390, 440)) {
     siguientePantalla = 9;
     transicion = true;
   }
-
-  // PANTALLA 9
   else if (pantalla === 9) {
     if (!mostrarOpcionesP9 && mouseZona(700, 750, 390, 440)) {
       mostrarOpcionesP9 = true;
@@ -447,8 +382,6 @@ function mousePressed() {
       }
     }
   }
-
-  // PANTALLAS PACÍFICAS
   else if (pantalla === 11 && mouseZona(700, 750, 390, 440)) {
     siguientePantalla = 12;
     transicion = true;
@@ -457,14 +390,10 @@ function mousePressed() {
     siguientePantalla = 13;
     transicion = true;
   }
-
-  // AVANCE DESDE PANTALLA 14 (HUNDIMIENTO) HACIA PANTALLA 15 (YACARÉS VS BUQUE)
   else if (pantalla === 14 && mouseZona(700, 750, 390, 440)) {
     siguientePantalla = 15;
     transicion = true;
   }
-
-  // REINICIAR AL INICIO DESDE CUALQUIER FINAL (Pantallas 10, 13, 15 o 16)
   else if (pantalla === 10 || pantalla === 13 || pantalla === 15 || pantalla === 16) {
     if (mouseZona(20, 70, 20, 70)) {
       mostrarOpciones = false;
@@ -475,7 +404,6 @@ function mousePressed() {
       
       siguientePantalla = 0;
       transicion = true;
-      
     }
   }
 }
