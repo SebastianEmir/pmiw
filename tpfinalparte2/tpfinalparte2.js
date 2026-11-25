@@ -20,7 +20,7 @@ let sonidoColision;
 let sonidoBoton;
 let musicaRecorrido;
 let gestorAudio;
-let miFondo;
+
 let yacares = [];
 
 function preload() {
@@ -45,12 +45,10 @@ function preload() {
 function setup() {
   rectMode(CENTER);
   createCanvas(800, 400);
+  
   gestorAudio = new GestorAudio(sonidoTorpedo, sonidoColision, sonidoBoton, musicaRecorrido);
 
-  miFondo = new Fondo(imgLecho, imgLecho2);
-
-  // Pasamos miFondo a Principal
-  juego = new Principal(cantidad, 60, imgTorpedoRojo, yacares, imgTorpedoAmarillo, imgCortezaVertical, imgCortezaHorizontal, gestorAudio, imgBuque, miFondo);
+  juego = new Principal(cantidad, 60, imgTorpedoRojo, yacares, imgTorpedoAmarillo, imgCortezaVertical, imgCortezaHorizontal, gestorAudio, imgBuque, imgLecho, imgLecho2);
 }
 
 function draw() {
@@ -61,20 +59,12 @@ function draw() {
 
 function mousePressed() {
   if (juego) {
-    if (juego.estado === "JUGANDO") {
-      juego.disparar();
-    } else if (juego.estado === "GAMEOVER" || juego.estado === "VICTORIA") {
-      juego.verificarPresionMouse();
-    }
+    juego.manejarClic();
   }
 }
 
 function keyPressed() {
-  if (keyCode === ENTER && juego) {
-    if (juego.estado === "INICIO") {
-      juego.estado = "INSTRUCCIONES";
-    } else if (juego.estado === "INSTRUCCIONES") {
-      juego.estado = "JUGANDO";
-    }
+  if (juego) {
+  juego.manejarTecla(keyCode);
   }
 }

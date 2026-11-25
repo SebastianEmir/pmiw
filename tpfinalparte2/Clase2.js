@@ -1,8 +1,9 @@
 class Principal {    ////class2.js
-  constructor(cantNaves, tamArma, imgTorpedoRojo, imgYacares, imgTorpedoAmarillo, imgCortezaV, imgCortezaH, audioObj, imgBuque, fondoObj) {
+  constructor(cantNaves, tamArma, imgTorpedoRojo, imgYacares, imgTorpedoAmarillo, imgCortezaV, imgCortezaH, audioObj, imgBuque, imgLecho, imgLecho2) {
     this.cant = cantNaves;
     this.torpedosRojos = [];
     this.yacare = new Yacare(tamArma, imgYacares, imgTorpedoAmarillo);
+    this.fondo = new Fondo(imgLecho, imgLecho2);
 
     //torpedos rojos cantidad
     for (let i = 0; i < this.cant; i++) {
@@ -13,7 +14,8 @@ class Principal {    ////class2.js
     this.cortezaHorizontal = imgCortezaH;
     this.audio = audioObj;
     this.buqueImg = imgBuque;
-    this.fondo = fondoObj;
+
+    
 
     //salud del buque
     this.vidaMaxBuque = 15;
@@ -373,5 +375,22 @@ class Principal {    ////class2.js
         this.estado = "INICIO";
       }
     }
+  }
+  manejarClic() {
+  if (this.estado === "JUGANDO") {
+    this.disparar();
+  } else if (this.estado === "GAMEOVER" || this.estado === "VICTORIA") {
+    this.verificarPresionMouse();
+  }
+}
+  
+  manejarTecla(codigoTecla) {
+  if (codigoTecla === ENTER) {
+    if (this.estado === "INICIO") {
+      this.estado = "INSTRUCCIONES";
+    } else if (this.estado === "INSTRUCCIONES") {
+      this.estado = "JUGANDO";
+    }
+   }
   }
 }
